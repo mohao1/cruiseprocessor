@@ -54,9 +54,10 @@ func (wp *WorkerPool) ResultChan() <-chan Result {
 }
 
 func (wp *WorkerPool) Execute(chanId int, t func() error) {
-	// TODO: Matching scheduling algorithm (chanId int)
+	// TODO: (chanId int)
+	poolId, _ := Polling(chanId, wp.workerNum)
 	//Corresponding data in the pipeline
-	wp.poolList[chanId] <- t
+	wp.poolList[poolId] <- t
 }
 
 func (wp *WorkerPool) work(pool chan task) {
